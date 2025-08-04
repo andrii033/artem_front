@@ -25,8 +25,22 @@ const Login = () => {
 
             const data = await response.json()
             localStorage.setItem('token', data.token)
+            localStorage.setItem('role',data.role)
+
+            console.log(
+                `User ${username} logged in successfully!`,
+            )
+
             setError('')
-            navigate('/admin') // ⬅️ переход на /admin
+
+            if (data.role === 'ADMIN') {
+                navigate('/admin/users')
+            } else if (data.role === 'USER') {
+                navigate('/user') // или другой путь для обычных пользователей
+            } else {
+                navigate('/') // на всякий случай
+            }
+
         } catch (err) {
             setError('Invalid username or password')
         }
