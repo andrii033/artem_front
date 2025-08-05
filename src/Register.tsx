@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 const Register = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
     const [role, setRole] = useState('USER')
     const [error, setError] = useState('')
     const navigate = useNavigate()
@@ -20,7 +21,7 @@ const Register = () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify({ username, password, role })
+                body: JSON.stringify({ username, password,email, role })
             })
 
             if (!res.ok) {
@@ -54,6 +55,14 @@ const Register = () => {
                     required
                     style={{ display: 'block', marginBottom: 10, width: '100%' }}
                 />
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={e=>setEmail(e.target.value)}
+                    required
+                    style={{ display: 'block', marginBottom: 10, width: '100%' }}
+                    />
                 <select
                     value={role}
                     onChange={e => setRole(e.target.value)}
